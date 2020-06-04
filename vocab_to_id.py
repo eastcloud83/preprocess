@@ -10,15 +10,13 @@ with open(vocab_file_path) as f:
 wakati_id_str = ""
 with open(wakati_file_path) as f2:
     for wakati_line in f2:
-        wakati_line = wakati_line.rstrip("\n")
         for wakati_vocab in wakati_line.split(" "):
-            if wakati_vocab in vocab_list:  # 単語がリストにある
+            if wakati_vocab == " ":
+                vocab_id = 0
+            elif wakati_vocab in vocab_list:  # 単語がリストにある
                 vocab_id = vocab_list.index(wakati_vocab)
             else:  # 単語がリストにない
-                if wakati_vocab == " ":
-                    vocab_id = 0
-                else:
-                    vocab_id = 1
+                vocab_id = 1
             wakati_id_str += str(vocab_id) + " "
         wakati_id_str = wakati_id_str.rstrip(" ") + "\n"
 
