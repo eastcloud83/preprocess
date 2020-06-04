@@ -26,11 +26,12 @@ def base_wakati(docs_list):
     return wakati_docs_list
 
 
-docs = ["あなたにお聞きしたいのですが、今日の天気はどうですか。", "今日はいい天気です。今日は公園に行きましょう。"]
+docs = ["猫の子猫", "今日はいい天気です。今日は公園に行きましょう。"]
 print(base_wakati(docs))
 
-count_vectorizer = CountVectorizer(binary=False)  # binary=False：頻度を考慮
+count_vectorizer = CountVectorizer(token_pattern='(?u)\\b\\w+\\b')  # binary=False：頻度を考慮
 bow = count_vectorizer.fit_transform(base_wakati(docs))
+print(count_vectorizer.get_feature_names())
 print(bow.toarray())
 print(count_vectorizer.vocabulary_)
 # コサイン類似度計算
@@ -38,7 +39,7 @@ score = cosine_similarity(bow.toarray(), bow.toarray())
 print(score)
 
 """
-tfidf_vectorizer = TfidfVectorizer()
+tfidf_vectorizer = TfidfVectorizer(token_pattern='(?u)\\b\\w+\\b')
 tfidf = tfidf_vectorizer.fit_transform(base_wakati(docs))
 print(tfidf.toarray())
 print(tfidf_vectorizer.vocabulary_)
