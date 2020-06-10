@@ -3,7 +3,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import MeCab
 
 
-def base_wakati(docs_list):
+def tokenize(docs_list):
     # type: (list) -> list
     """
     リスト内の文の単語を原形にして分かち書きをする関数
@@ -20,31 +20,35 @@ def base_wakati(docs_list):
                 info = q_morph.split("\t")[1]  # 形態素情報
                 word = info.split(",")[6]  # 単語の原形
                 wakati_line = wakati_line + word + " "
-        wakati_docs_list.append(wakati_line.rstrip(" ") + "\n")
-
-    wakati_docs_list[-1] = wakati_docs_list[-1].rstrip("\n")  # 末尾は改行を削除
+        wakati_docs_list.append(wakati_line.rstrip(" "))
     return wakati_docs_list
 
 
-docs = ["猫の子猫", "今日はいい天気です。今日は公園に行きましょう。"]
-print(base_wakati(docs))
-
+docs = ["あなたにお聞きしたいのですが、今日の天気はどうですか。", "今日はいい天気です。今日は公園に行きましょう。"]
 count_vectorizer = CountVectorizer(token_pattern='(?u)\\b\\w+\\b')  # binary=False：頻度を考慮
-bow = count_vectorizer.fit_transform(base_wakati(docs))
+bow = count_vectorizer.fit_transform(tokenize(docs))
+
+print(tokenize(docs))
+
 print(count_vectorizer.get_feature_names())
 print(bow.toarray())
 print(count_vectorizer.vocabulary_)
+
 # コサイン類似度計算
 score = cosine_similarity(bow.toarray(), bow.toarray())
 print(score)
+print(score[0][1])  # 0行目1列目
 
 """
+# TF-IDF
 tfidf_vectorizer = TfidfVectorizer(token_pattern='(?u)\\b\\w+\\b')
-tfidf = tfidf_vectorizer.fit_transform(base_wakati(docs))
+tfidf = tfidf_vectorizer.fit_transform(tokenize(docs))
 print(tfidf.toarray())
 print(tfidf_vectorizer.vocabulary_)
+
 # コサイン類似度計算
 score = cosine_similarity(tfidf.toarray(), tfidf.toarray())
 print(score)
+print(score[0][1])  # 0行目1列目
 """
 

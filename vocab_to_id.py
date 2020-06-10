@@ -11,12 +11,14 @@ wakati_id_str = ""
 with open(wakati_file_path) as f2:
     for wakati_line in f2:
         for wakati_vocab in wakati_line.split(" "):
-            if wakati_vocab == " ":
-                vocab_id = 0
-            elif wakati_vocab in vocab_list:  # 単語がリストにある
+            if wakati_vocab in vocab_list:  # 単語がリストにある
                 vocab_id = vocab_list.index(wakati_vocab)
             else:  # 単語がリストにない
-                vocab_id = 1
+                if wakati_vocab == " ":
+                    vocab_id = 0
+                else:
+                    vocab_id = 1
+                    print(wakati_vocab)
             wakati_id_str += str(vocab_id) + " "
         wakati_id_str = wakati_id_str.rstrip(" ") + "\n"
 

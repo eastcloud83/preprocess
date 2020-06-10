@@ -42,8 +42,8 @@ def base_wakati(file):
     return wakati_texts_list
 
 
-wakati_texts_list = surface_wakati(file_path)
-# wakati_texts_list = base_wakati(file_path)
+# wakati_texts_list = surface_wakati(file_path)
+wakati_texts_list = base_wakati(file_path)
 
 with open(out_file_path, "w") as f2:
     f2.writelines(wakati_texts_list)
