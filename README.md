@@ -9,4 +9,4 @@
 
 `sentence_split.py` 一文ずつで改行したファイルを作成
 
-`text_mining` 色んな区切り方の文字列の出現頻度をグラフ表示する
+`text_mining` 出現頻度をグラフ表示する
