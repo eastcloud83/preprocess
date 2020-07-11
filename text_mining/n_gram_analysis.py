@@ -3,6 +3,7 @@ import glob
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 import numpy as np
+from collections import Counter
 
 n = int(input("Nの数を入力してください："))
 
@@ -23,15 +24,11 @@ for dir_name in dirs:
                     word = sentence[i: i + n]
                     words.append(word)
 
-p_words = list(set(words))  # words内の重複要素を削除
+word_cnt = Counter(words)
 
-word_count_list = []
-for word in p_words:
-    word_count_list.append((word, words.count(word)))
-word_count_list = sorted(word_count_list, key=lambda x: x[1], reverse=True)
 word_list = []
 freq_list = []
-for word_count_tuple in word_count_list[:50]:  # 上位50件を表示
+for word_count_tuple in sorted(word_cnt.items(), key=lambda x: x[1], reverse=True)[:50]:  # 上位50件を表示
     word_list.append(word_count_tuple[0])
     freq_list.append(word_count_tuple[1])
     print(word_count_tuple)
@@ -50,4 +47,4 @@ plt.ylabel('出現頻度', fontproperties=fp)
 # データプロット
 plt.yticks(np.arange(0, 50), word_list, fontproperties=fp, fontsize=6)
 plt.barh(np.arange(0, 50), np.array(freq_list), height=0.5)
-p
+plt.show()
