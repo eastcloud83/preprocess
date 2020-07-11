@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import glob
 from matplotlib.font_manager import FontProperties
 
-minfreq = 100
 mecab = MeCab.Tagger("-Ochasen")
 
 # ストップワード
@@ -27,6 +26,7 @@ for dir_name in dirs:
                 for sentence in (re.sub('。', '。\n', whole_str.split("|")[-1])).splitlines():
                     sentences.append(sentence)
 
+# 隣同士で出現した単語をタプルにしてリストに追加
 word_pair = []
 for s in sentences:
     flag = False
@@ -51,8 +51,10 @@ for s in sentences:
         flag = False
         node = node.next
 
+# ペアの出現頻度をカウント
 word_pair_cnt_dic = Counter(word_pair)
 
+# 以下グラフ用
 word_list = []
 freq_list = []
 for word_count_tuple in sorted(word_pair_cnt_dic.items(), key=lambda x: x[1], reverse=True)[:55]:  # 上位55件を表示
