@@ -30,11 +30,14 @@ def tokenize(docs_list):
         wakati_docs_list.append(wakati_line.rstrip(" "))
     return wakati_docs_list
 
+
+directory_name = input("ディレクトリ名：")
+
 # ディレクトリごとにファイルを読み込む
 docs = []
 tags = []
 tag_id = 0
-dirs = glob.glob("../../inamori_data_kai/*")  # 指定したディレクトリにあるすべてのディレクトリの読み込み
+dirs = glob.glob("../../{}/*".format(directory_name))  # 指定したディレクトリにあるすべてのディレクトリの読み込み
 for dir_name in dirs:
     files = glob.glob(dir_name + "/*.txt")  # ディレクトリの中のすべての文書ファイルの読み込み
     for file_name in files:

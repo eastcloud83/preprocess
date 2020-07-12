@@ -1,5 +1,4 @@
 # 連続して出現する単語をカウント（N-gramの単語と品詞を考慮したようなプログラム）
-# 現在２単語のみ対応
 import re
 import numpy as np
 from collections import Counter
